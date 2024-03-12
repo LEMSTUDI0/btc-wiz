@@ -1,0 +1,54 @@
+/* Base */
+
+body {
+	min-height: 100vh;
+	color: #fff;
+	background-color: #b5ffe7;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.content {
+	position: relative;
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	margin: 0 auto;
+	min-height: 100vh;
+}
+
+/* Canvas positions */
+.content__inner {
+	grid-area: 1 / 1 / 1 / 1;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	align-content: center;
+}
+
+.scene {
+	position: absolute;
+}
+
+.scene--full {
+	width: 100%;
+	height: 100vh;
+}
+
+@media screen and (max-width: 55em) {
+	.content {
+		flex-direction: column;
+		height: auto;
+	}
+	.content:not(.content--fixed) {
+		margin-bottom: 6em;
+	}
+}
+
+.content__inner img {
+	width: 30vw;
+	opacity: .7;
+}
