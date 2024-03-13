@@ -1,3 +1,5 @@
+
+
 var canvas = document.querySelector('#scene');
 var width = canvas.offsetWidth,
     height = canvas.offsetHeight;
