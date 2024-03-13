@@ -1,8 +1,10 @@
 {
   "scripts": {},
   "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
     "copen": "^1.0.2",
     "cpen": "^0.4.3",
+    "node-fetch": "^3.3.2",
     "three": "^0.162.0"
   }
 }
