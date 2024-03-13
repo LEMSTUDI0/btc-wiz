@@ -1,26 +1,49 @@
 
 
-var canvas = document.querySelector('#scene');
-var width = canvas.offsetWidth,
-    height = canvas.offsetHeight;
+// var canvas = document.querySelector('#scene');
+// var width = canvas.offsetWidth,
+//     height = canvas.offsetHeight;
 
+// var renderer = new THREE.WebGLRenderer({
+//     canvas: canvas,
+//     antialias: true
+// });
+// renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1);
+// renderer.setSize(width, height);
+// renderer.setClearColor(0xb5ffe7);
+
+// var scene = new THREE.Scene();
+
+var canvas = document.querySelector('#scene');
 var renderer = new THREE.WebGLRenderer({
     canvas: canvas,
     antialias: true
 });
-renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1);
-renderer.setSize(width, height);
-renderer.setClearColor(0xb5ffe7);
 
 var scene = new THREE.Scene();
 
-var camera = new THREE.PerspectiveCamera(100, width / height, 0.1, 10000);
+var camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 0.1, 10000);
 camera.position.set(60, 0, 220);
+
+// Set renderer size to fill the entire window
+function resizeRenderer() {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+}
+
+resizeRenderer(); // Call once to set initial size
+renderer.setClearColor(0xb5ffe7);
+// Set renderer size on window resize
+window.addEventListener('resize', resizeRenderer);
+
+camera.position.set(60, 0, 220);
+
 
 var light = new THREE.HemisphereLight(0xffffff, 0x0C056D, 0.6);
 scene.add(light);
 
-var light = new THREE.DirectionalLight(0x590D82, 0.5);
+var light = new THREE.DirectionalLight(0x590D82, 0.6);
 light.position.set(200, 300, 400); 
 scene.add(light);
 var light2 = light.clone();
