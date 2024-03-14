@@ -1,9 +1,14 @@
 const BLOB_TRANSITION_SPEED = 0.0003;
 
+async function fetchData() {
+    const response = await fetch('http://localhost:3000/data');
+    const data = await response.json();
+    document.getElementById('data').innerText = JSON.stringify(data);
+}
 
+fetchData();
 
-
-
+setInterval(fetchData, 60 *1000);
 // Select the canvas element with the id 'scene'
 var canvas = document.querySelector('#scene');
 
