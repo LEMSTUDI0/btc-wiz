@@ -13,4 +13,12 @@ vite
 
  `node server.js`
 
+##
+potrzebuję aby zmienne:
+colormain
+marketCap
+priceChange24h
+currentPrice
+
+były dostępne poza tymi jebanymi funkcjami async (czy w ogóle potrzebna jest asynchroniczność?)
 

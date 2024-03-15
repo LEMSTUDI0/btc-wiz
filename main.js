@@ -1,10 +1,60 @@
 const BLOB_TRANSITION_SPEED = 0.0003;
 
+var colorMap = {
+    1: 0x5F2879,
+    2: 0x00418D,
+    3: 0x00C2DE,
+    4: 0x00BA71,
+    5: 0xFAD717,
+    6: 0xFA8901,
+    7: 0xF43545
+};
+
+var colormain = 0xffffff;
+
 async function fetchData() {
     const response = await fetch('http://localhost:3000/data');
     const data = await response.json();
     document.getElementById('data').innerText = JSON.stringify(data);
+
+            // Tutaj dodajemy logikę do pobrania i przetworzenia zawartości elementu 'data'
+            const dataElement = document.getElementById('data').innerText;
+            const dataObject = JSON.parse(dataElement);
+            const value = dataObject.rainbowStatus;
+            
+            // Teraz 'value' zawiera cyfrę ze zmiennej 'data', którą możesz użyć do dalszej logiki
+            console.log(value); // Wyświetli wartość 'rainbowStatus' jako liczbę
+        
+            // Kontynuacja twojej logiki, np. ustawienie koloru na podstawie wartości 'value'
+            var colormain = colorMap[value];
+            
+            console.log(colormain);
+            // Set background color of the renderer
+            renderer.setClearColor(colormain);
+        }
+
+async function fetchBitcoinData() {
+    const url = 'https://api.coingecko.com/api/v3/coins/bitcoin';
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        const marketCap = data.market_data.market_cap.usd;
+        const priceChange24h = data.market_data.price_change_percentage_24h;
+        const currentPrice = data.market_data.current_price.usd;
+
+        console.log(`Market Cap: $${marketCap}`);
+        console.log(`Price Change (24h): ${priceChange24h}%`);
+        console.log(`Current Price: $${currentPrice}`);
+
+        // Tutaj możesz zapisać te dane do zmiennych globalnych lub robić z nimi co chcesz
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
 }
+
+fetchBitcoinData();
 
 fetchData();
 
@@ -43,8 +93,7 @@ resizeRenderer();
 var width = canvas.offsetWidth;
 var height = canvas.offsetHeight;
 
-// Set background color of the renderer
-renderer.setClearColor(0xb5ffe7);
+
 
 // Listen for window resize event to adjust renderer size and camera aspect ratio
 window.addEventListener('resize', resizeRenderer);
@@ -74,7 +123,7 @@ for (var i = 0; i < geometry.vertices.length; i++) {
 
 // Create a MeshPhongMaterial with specified properties
 var material = new THREE.MeshPhongMaterial({
-    emissive: 0x23f660,
+    emissive: 0x00BA71,
     emissiveIntensity: 0.9,
     shininess: 0
 });
