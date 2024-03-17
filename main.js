@@ -1,4 +1,4 @@
-var  BLOB_TRANSITION_SPEED = 0.0003;
+var BLOB_TRANSITION_SPEED = 0.0003;
 var BLOB_SIZE = 0.8;
 var colorMap = {
     1: 0x5F2879,
@@ -12,7 +12,7 @@ var colorMap = {
 
 var colormain = 0xffffff;
 
-async function fetchData() {
+async function fetchBitcoinRainbowColor() {
     const response = await fetch('http://localhost:3000/data');
     const data = await response.json();
     var colormain = colorMap[data.rainbowStatus];
@@ -45,14 +45,12 @@ async function fetchBitcoinData() {
 }
 
 
-fetchData();
+fetchBitcoinRainbowColor();
 fetchBitcoinData();
 
-setInterval(() => {
-    fetchData();
-    fetchBitcoinData();
-}, 60 * 1000
-);
+setInterval(fetchBitcoinRainbowColor, 60 * 1000);
+
+setInterval(fetchBitcoinData, 10 * 1000);
 
 // Select the canvas element with the id 'scene'
 var canvas = document.querySelector('#scene');
@@ -137,11 +135,11 @@ var colorTween = {
 };
 // Function to update the vertices of the geometry based on Perlin noise
 function updateVertices(a) {
-    
-    
+
+
     // nie dziala, nie wiem jak dostac sie do koloru ze sceny
     if (light.color.equals(initialColor)) {
-        
+
         // Start tween to transition light color from initialColor to targetColor
         TweenMax.to(colorTween, 1, {
             color: targetColor,
