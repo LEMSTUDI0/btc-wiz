@@ -1,5 +1,5 @@
-const BLOB_TRANSITION_SPEED = 0.0003;
-
+var  BLOB_TRANSITION_SPEED = 0.0003;
+var BLOB_SIZE = 0.8;
 var colorMap = {
     1: 0x5F2879,
     2: 0x00418D,
@@ -15,23 +15,12 @@ var colormain = 0xffffff;
 async function fetchData() {
     const response = await fetch('http://localhost:3000/data');
     const data = await response.json();
-    document.getElementById('data').innerText = JSON.stringify(data);
+    var colormain = colorMap[data.rainbowStatus];
 
-            // Tutaj dodajemy logikę do pobrania i przetworzenia zawartości elementu 'data'
-            const dataElement = document.getElementById('data').innerText;
-            const dataObject = JSON.parse(dataElement);
-            const value = dataObject.rainbowStatus;
-            
-            // Teraz 'value' zawiera cyfrę ze zmiennej 'data', którą możesz użyć do dalszej logiki
-            console.log(value); // Wyświetli wartość 'rainbowStatus' jako liczbę
-        
-            // Kontynuacja twojej logiki, np. ustawienie koloru na podstawie wartości 'value'
-            var colormain = colorMap[value];
-            
-            console.log(colormain);
-            // Set background color of the renderer
-            renderer.setClearColor(colormain);
-        }
+    console.log("Color: ", data.rainbowStatus);
+    // Set background color of the renderer
+    renderer.setClearColor(colormain);
+}
 
 async function fetchBitcoinData() {
     const url = 'https://api.coingecko.com/api/v3/coins/bitcoin';
@@ -44,6 +33,7 @@ async function fetchBitcoinData() {
         const priceChange24h = data.market_data.price_change_percentage_24h;
         const currentPrice = data.market_data.current_price.usd;
 
+        // z tego miejsca
         console.log(`Market Cap: $${marketCap}`);
         console.log(`Price Change (24h): ${priceChange24h}%`);
         console.log(`Current Price: $${currentPrice}`);
@@ -54,11 +44,16 @@ async function fetchBitcoinData() {
     }
 }
 
-fetchBitcoinData();
 
 fetchData();
+fetchBitcoinData();
 
-setInterval(fetchData, 60 *1000);
+setInterval(() => {
+    fetchData();
+    fetchBitcoinData();
+}, 60 * 1000
+);
+
 // Select the canvas element with the id 'scene'
 var canvas = document.querySelector('#scene');
 
@@ -142,8 +137,11 @@ var colorTween = {
 };
 // Function to update the vertices of the geometry based on Perlin noise
 function updateVertices(a) {
-    // Check if light color needs to be updated
+    
+    
+    // nie dziala, nie wiem jak dostac sie do koloru ze sceny
     if (light.color.equals(initialColor)) {
+        
         // Start tween to transition light color from initialColor to targetColor
         TweenMax.to(colorTween, 1, {
             color: targetColor,
@@ -171,7 +169,7 @@ function updateVertices(a) {
             (vector.y * 0.002) + (a * BLOB_TRANSITION_SPEED),
             (vector.z * 0.02)
         );
-        var ratio = ((perlin * 0.4 * (mouse.y + 0.1)) + 0.8);
+        var ratio = ((perlin * 0.4 * (mouse.y + 0.1)) + BLOB_SIZE);
         // transitionLightColor();
 
         vector.multiplyScalar(ratio);
