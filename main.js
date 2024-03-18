@@ -9,14 +9,15 @@ var colorMap = {
     6: 0xFA8901,
     7: 0xF43545
 };
-
+var currentRainbowStatusIndex = 0;
 var colormain = 0xffffff;
+var secondaryColor = 0xffffff;
 
 async function fetchBitcoinRainbowColor() {
     const response = await fetch('http://localhost:3000/data');
     const data = await response.json();
     var colormain = colorMap[data.rainbowStatus];
-
+    currentRainbowStatusIndex = data.rainbowStatus;
     console.log("Color: ", data.rainbowStatus);
     // Set background color of the renderer
     renderer.setClearColor(colormain);
@@ -37,6 +38,21 @@ async function fetchBitcoinData() {
         console.log(`Market Cap: $${marketCap}`);
         console.log(`Price Change (24h): ${priceChange24h}%`);
         console.log(`Current Price: $${currentPrice}`);
+        BLOB_SIZE = 0.5 * marketCap / 1328615751025;
+        
+        if (priceChange24h >0 )
+        {
+            secondaryColor = colorMap[currentRainbowStatusIndex+2];
+            console.log("secondaryColor", currentRainbowStatusIndex+2);
+        }
+        else{
+            secondaryColor = colorMap[currentRainbowStatusIndex-2];
+            console.log("secondaryColor", currentRainbowStatusIndex-2);
+            
+        }
+        lightD2.color.set(secondaryColor);
+        light
+        // console.log("secondaryColor", secondaryColor);
 
         // Tutaj możesz zapisać te dane do zmiennych globalnych lub robić z nimi co chcesz
     } catch (error) {
@@ -64,9 +80,7 @@ var renderer = new THREE.WebGLRenderer({
 // Create a new scene
 var scene = new THREE.Scene();
 
-// Initialize a PerspectiveCamera with a field of view of 100 degrees,
-// aspect ratio based on window dimensions, near clipping plane at 0.1,
-// and far clipping plane at 10000
+
 var camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 0.1, 10000);
 
 // Set camera position
@@ -92,18 +106,18 @@ var height = canvas.offsetHeight;
 window.addEventListener('resize', resizeRenderer);
 
 // Create and add HemisphereLight to the scene
-var light = new THREE.HemisphereLight(0xffffff, 0x0C056D, 0.4);
+var light = new THREE.HemisphereLight(0xffffff, 0x0C056D, 0.2);
 scene.add(light);
 
 // Create and add DirectionalLight to the scene
-var light = new THREE.DirectionalLight(0xffff00, 0.3);
-light.position.set(200, 300, 400);
-scene.add(light);
+var lightD1 = new THREE.DirectionalLight(0xffff00, 0.3);
+lightD1.position.set(200, 300, 400);
+scene.add(lightD1);
 
 // Clone DirectionalLight and add it to the scene with a different position
-var light2 = light.clone();
-light2.position.set(-200, 300, 400);
-scene.add(light2);
+var lightD2 = light.clone();
+lightD2.position.set(-200, 300, 400);
+scene.add(lightD2);
 
 // Create an IcosahedronGeometry with specified parameters
 var geometry = new THREE.IcosahedronGeometry(120, 4);

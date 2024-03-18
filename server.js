@@ -15,7 +15,7 @@ const rainbowUrl = 'https://www.blockchaincenter.net/en/bitcoin-rainbow-chart/';
 app.get('/data', async (req, res) => {
 
     try {
-        const response = await fetch(rainbowUrl);
+        const response = await fetch(rainbowUrl, { timeout:  8000 });
         if (!response.ok) {
             throw new Error('Failed to fetch HTML');
         }
@@ -30,6 +30,7 @@ app.get('/data', async (req, res) => {
                 rainbowStatus = index;
             }
         });
+        console.log("Served");
         res.json({ rainbowStatus });
 
     } catch (error) {
