@@ -27,7 +27,7 @@ function updateLightColor() {
 }
 function updatematerialColor() {
     material.emissive.set(colormain); // Aktualizacja światła półkulistego
-    material.emissiveIntensity = 0.9;
+    material.emissiveIntensity = 0.8;
 
 }
 
@@ -61,7 +61,7 @@ async function fetchBitcoinData() {
         console.log(`Market Cap: $${marketCap}`);
         console.log(`Price Change (24h): ${priceChange24h}%`);
         console.log(`Current Price: $${currentPrice}`);
-        BLOB_SIZE = 0.5 * marketCap / 1328615751025;
+        BLOB_SIZE = 0.5 * marketCap / 1028615751025;
 
         if (priceChange24h > 0) {
             secondaryColor = colorMap[currentRainbowStatusIndex + 1];
@@ -125,11 +125,11 @@ var height = canvas.offsetHeight;
 window.addEventListener('resize', resizeRenderer);
 
 // Create and add HemisphereLight to the scene
-var light = new THREE.HemisphereLight(0xffffff, 0x0C056D, 0.2);
+var light = new THREE.HemisphereLight(0xffffff, 0x0C056D, 0.05);
 scene.add(light);
 
 // Create and add DirectionalLight to the scene
-var lightD1 = new THREE.DirectionalLight(0xffff00, 0.1);
+var lightD1 = new THREE.DirectionalLight(0xffff00, 0.3);
 lightD1.position.set(200, 300, 400);
 scene.add(lightD1);
 
@@ -139,7 +139,7 @@ lightD2.position.set(-200, 300, 400);
 scene.add(lightD2);
 
 // Create an IcosahedronGeometry with specified parameters
-var geometry = new THREE.IcosahedronGeometry(120, 4);
+var geometry = new THREE.IcosahedronGeometry(120, 6);
 
 // Iterate over each vertex in the geometry and store its original position
 for (var i = 0; i < geometry.vertices.length; i++) {
@@ -196,11 +196,11 @@ function updateVertices(a) {
         var vector = geometry.vertices[i];
         vector.copy(vector._o);
         var perlin = noise.simplex3(
-            (vector.x * 0.005) + (a * BLOB_TRANSITION_SPEED),
+            (vector.x * 0.007) + (a * BLOB_TRANSITION_SPEED),
             (vector.y * 0.002) + (a * BLOB_TRANSITION_SPEED),
-            (vector.z * 0.02)
+            (vector.z * 0.006) + (a * BLOB_TRANSITION_SPEED),
         );
-        var ratio = ((perlin * 0.4 * (mouse.y + 0.1)) + BLOB_SIZE);
+        var ratio = ((perlin * 0.1 ) + BLOB_SIZE);
         // transitionLightColor();
 
         vector.multiplyScalar(ratio);
