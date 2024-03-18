@@ -13,6 +13,20 @@ var currentRainbowStatusIndex = 0;
 var colormain = 0xffffff;
 var secondaryColor = 0xffffff;
 
+// Zdefiniuj światła tutaj, aby były dostępne globalnie
+var light;
+var lightD1;
+var lightD2;
+
+// Funkcja aktualizująca światło na podstawie secondaryColor
+function updateLightColor() {
+    if (light && lightD1) {
+        light.color.set(secondaryColor); // Aktualizacja światła półkulistego
+        lightD1.color.set(tertiaryColor); // Aktualizacja światła kierunkowego lightD1
+    }
+}
+
+
 async function fetchBitcoinRainbowColor() {
     const response = await fetch('http://localhost:3000/data');
     const data = await response.json();
@@ -21,6 +35,10 @@ async function fetchBitcoinRainbowColor() {
     console.log("Color: ", data.rainbowStatus);
     // Set background color of the renderer
     renderer.setClearColor(colormain);
+        // Dodatkowa logika do aktualizacji secondaryColor
+    // i wywołania funkcji updateLightColor
+    updateLightColor(); // Możesz wywołać tę funkcję tutaj, jeśli chcesz od razu zaktualizować kolor
+
 }
 
 async function fetchBitcoinData() {
