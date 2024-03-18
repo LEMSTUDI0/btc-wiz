@@ -18,27 +18,32 @@ var light;
 var lightD1;
 var lightD2;
 
-// Funkcja aktualizująca światło na podstawie secondaryColor
+// Funkcja aktualizująca światło na podstawie senpcondaryColor
 function updateLightColor() {
     if (light && lightD1) {
         light.color.set(secondaryColor); // Aktualizacja światła półkulistego
-        lightD1.color.set(tertiaryColor); // Aktualizacja światła kierunkowego lightD1
+        lightD1.color.set(secondaryColor); // Aktualizacja światła kierunkowego lightD1
     }
 }
+function updatematerialColor() {
+    material.emissive.set(colormain); // Aktualizacja światła półkulistego
+    material.emissiveIntensity = 0.9;
 
+}
 
 async function fetchBitcoinRainbowColor() {
     const response = await fetch('http://localhost:3000/data');
     const data = await response.json();
-    var colormain = colorMap[data.rainbowStatus];
+    colormain = colorMap[data.rainbowStatus];
     currentRainbowStatusIndex = data.rainbowStatus;
     console.log("Color: ", data.rainbowStatus);
     // Set background color of the renderer
     renderer.setClearColor(colormain);
-        // Dodatkowa logika do aktualizacji secondaryColor
+    // Dodatkowa logika do aktualizacji secondaryColor
     // i wywołania funkcji updateLightColor
     updateLightColor(); // Możesz wywołać tę funkcję tutaj, jeśli chcesz od razu zaktualizować kolor
-
+    updatematerialColor();
+    console.log('glowny kolor', colormain);
 }
 
 async function fetchBitcoinData() {
@@ -57,20 +62,16 @@ async function fetchBitcoinData() {
         console.log(`Price Change (24h): ${priceChange24h}%`);
         console.log(`Current Price: $${currentPrice}`);
         BLOB_SIZE = 0.5 * marketCap / 1328615751025;
-        
-        if (priceChange24h >0 )
-        {
-            secondaryColor = colorMap[currentRainbowStatusIndex+2];
-            console.log("secondaryColor", currentRainbowStatusIndex+2);
+
+        if (priceChange24h > 0) {
+            secondaryColor = colorMap[currentRainbowStatusIndex + 1];
+            console.log("secondaryColor", currentRainbowStatusIndex + 1);
         }
-        else{
-            secondaryColor = colorMap[currentRainbowStatusIndex-2];
-            console.log("secondaryColor", currentRainbowStatusIndex-2);
-            
+        else {
+            secondaryColor = colorMap[currentRainbowStatusIndex - 1];
+            console.log("secondaryColor", currentRainbowStatusIndex - 1);
+
         }
-        lightD2.color.set(secondaryColor);
-        light
-        // console.log("secondaryColor", secondaryColor);
 
         // Tutaj możesz zapisać te dane do zmiennych globalnych lub robić z nimi co chcesz
     } catch (error) {
@@ -128,7 +129,7 @@ var light = new THREE.HemisphereLight(0xffffff, 0x0C056D, 0.2);
 scene.add(light);
 
 // Create and add DirectionalLight to the scene
-var lightD1 = new THREE.DirectionalLight(0xffff00, 0.3);
+var lightD1 = new THREE.DirectionalLight(0xffff00, 0.1);
 lightD1.position.set(200, 300, 400);
 scene.add(lightD1);
 
@@ -244,7 +245,7 @@ function onMouseMove(e) {
 requestAnimationFrame(render);
 
 // Listen for mouse movement event to update mouse position
-window.addEventListener("mousemove", onMouseMove);
+// window.addEventListener("mousemove", onMouseMove);
 
 // Variable to store timeout for resizing
 var resizeTm;
