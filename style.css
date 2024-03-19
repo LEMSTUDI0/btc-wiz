@@ -1,33 +1,22 @@
- /* Set the canvas to fullscreen */
- html, body {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-}
-
 .content {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	margin: 0;
-	padding: 0;
+    position: relative;
+    width: 100%; /* Or the specific width of your canvas */
+    height: 100vh; /* Or the specific height of your canvas */
 }
 
-.scene {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	margin: 0;
-	padding: 0;
+.scene--full {
+    width: 100%;
+    height: 100%;
+    display: block; /* Ensures canvas fits its container exactly */
+    position: relative;
+    z-index: 1; /* Lower z-index than content__inner */
 }
 
 .content__inner {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2; /* Higher z-index to ensure it's on top */
+    color: white; /* Or any color as needed */
+    padding: 10px;
 }
