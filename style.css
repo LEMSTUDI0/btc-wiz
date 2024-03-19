@@ -18,5 +18,7 @@
     left: 0;
     z-index: 2; /* Higher z-index to ensure it's on top */
     color: white; /* Or any color as needed */
-    padding: 10px;
+    font-family: 'Andale Mono', monospace;
+    font-size: 18px;
+    padding: 20px;
 }

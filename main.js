@@ -1,16 +1,30 @@
 var BLOB_TRANSITION_SPEED = 0.0003;
 var BLOB_SIZE = 0.8;
 var colorMap = {
-    1: 0x5F2879,
-    2: 0x00418D,
-    3: 0x00C2DE,
-    4: 0x00BA71,
-    5: 0xFAD717,
-    6: 0xFA8901,
-    7: 0xF43545
+    1: 0xa564da,
+    2: 0xef647b,
+    3: 0xdc393a,
+    4: 0xf66222,
+    5: 0xf8a227,
+    6: 0xfecc2f,
+    7: 0xb2c224,
+    8: 0x33beb7,
+    9: 0x40a4d8
 };
+var rainbowInfo = {
+    1: '\"Too Rich for My Old Friends" Zone',
+    2: 'Cash Out,seriously',
+    3: 'The \"I Knew I Should \'ve" Phase' ,
+    4: 'Bubble? What Bubble?' ,
+    5: 'HODL',
+    6: 'Discount Dreams' ,
+    7: 'Sell? What\'s That?',
+    8: '"Digital Gold Rush" Fever',
+    9: '"Paper Hands Anonymous" Meeting' 
+}
 var currentRainbowStatusIndex = 0;
 var colormain = 0xffffff;
+var rainbowText = 'elo';
 var secondaryColor = 0xffffff;
 
 // Zdefiniuj światła tutaj, aby były dostępne globalnie
@@ -58,7 +72,7 @@ void main() {
     // Obliczanie odległości od środka (z normalizacją dla koła)
     float distance = length(uvOffset) * 2.0; // *2.0, aby rozciągnąć gradient na całą płaszczyznę
     // Używanie smoothstep do stworzenia miękkiego gradientu z dominacją colorBottom na środku
-    float mixFactor = smoothstep(0.05, 1.0, distance); // Rozpoczęcie od 10% od środka
+    float mixFactor = smoothstep(0.02, 1.0, distance); // Rozpoczęcie od 10% od środka
 
     vec3 color = mix(colorBottom, colorTop, mixFactor); // Odwrócenie kolejności mieszania
     gl_FragColor = vec4(color, 1.0);
@@ -67,8 +81,22 @@ void main() {
 
     side: THREE.DoubleSide
 });
+// Przykładowa wartość dla marketCap
+var marketCap = 0; // Przypisujesz rzeczywistą wartość w ramach funkcji asynchronicznej
+var priceChange24h = 0; // Przypisujesz rzeczywistą wartość w ramach funkcji asynchronicznej
+var currentPrice = 0;
 
+// Funkcja aktualizująca zawartość elementu HTML
+function updateMarketCapDisplay() {
+    document.getElementById("marketCapValue").textContent =  marketCap.toLocaleString() + " USD";
+    document.getElementById("priceChange24hValue").textContent = priceChange24h.toLocaleString() + " %";
+    document.getElementById("currentPriceValue").textContent = currentPrice.toLocaleString() + " USD";
+}
 
+// Funkcja aktualizująca zawartość elementu HTML
+function updateRainbowTextDisplay() {
+    document.getElementById("rainbowTextValue").textContent =  rainbowText;
+}
 // Funkcja aktualizująca kolory tła
 function updateBackgroundColors() {
         backgroundShaderMaterial.uniforms.colorTop.value.set(colormain);
@@ -80,13 +108,15 @@ async function fetchBitcoinRainbowColor() {
     const response = await fetch('http://localhost:3000/data');
     const data = await response.json();
     colormain = colorMap[data.rainbowStatus];
+    rainbowText = rainbowInfo[data.rainbowStatus];
     currentRainbowStatusIndex = data.rainbowStatus;
     console.log("Color: ", data.rainbowStatus);
+    console.log(rainbowText);
+    updateRainbowTextDisplay()
     // Set background color of the renderer
   // renderer.setClearColor(colormain);
     // Dodatkowa logika do aktualizacji secondaryColor
     // i wywołania funkcji updateLightColor
-    updateLightColor(); // Możesz wywołać tę funkcję tutaj, jeśli chcesz od razu zaktualizować kolor
     updatematerialColor();
     console.log('glowny kolor', colormain);
     console.log('drugi kolor', secondaryColor);
@@ -100,10 +130,10 @@ async function fetchBitcoinData() {
         const response = await fetch(url);
         const data = await response.json();
 
-        const marketCap = data.market_data.market_cap.usd;
-        const priceChange24h = data.market_data.price_change_percentage_24h;
-        const currentPrice = data.market_data.current_price.usd;
-
+        marketCap = data.market_data.market_cap.usd;
+        priceChange24h = data.market_data.price_change_percentage_24h;
+        currentPrice = data.market_data.current_price.usd;
+        updateMarketCapDisplay();
         // z tego miejsca
         console.log(`Market Cap: $${marketCap}`);
         console.log(`Price Change (24h): ${priceChange24h}%`);
@@ -124,7 +154,10 @@ async function fetchBitcoinData() {
     } catch (error) {
         console.error('Error fetching data:', error);
     }
+    
+    updateLightColor(); // Możesz wywołać tę funkcję tutaj, jeśli chcesz od razu zaktualizować kolor
     updateBackgroundColors()
+
 }
 
 
@@ -189,7 +222,7 @@ var light = new THREE.HemisphereLight(0xffffff, 0x0C056D, 0.05);
 scene.add(light);
 
 // Create and add DirectionalLight to the scene
-var lightD1 = new THREE.DirectionalLight(0xffff00, 0.3);
+var lightD1 = new THREE.DirectionalLight(0xffff00, 0.2);
 lightD1.position.set(200, 300, 400);
 scene.add(lightD1);
 
@@ -199,7 +232,7 @@ lightD2.position.set(-200, 300, 400);
 scene.add(lightD2);
 
 // Create an IcosahedronGeometry with specified parameters
-var geometry = new THREE.IcosahedronGeometry(120, 6);
+var geometry = new THREE.IcosahedronGeometry(120, 4);
 
 // Iterate over each vertex in the geometry and store its original position
 for (var i = 0; i < geometry.vertices.length; i++) {
@@ -209,9 +242,9 @@ for (var i = 0; i < geometry.vertices.length; i++) {
 
 // Create a MeshPhongMaterial with specified properties
 var material = new THREE.MeshPhongMaterial({
-    emissive: 0x00BA71,
+    emissive: 0x00ff00,
     emissiveIntensity: 0.9,
-    shininess: 0
+    shininess: 0,
 });
 
 // Create a mesh with the geometry and material and add it to the scene
@@ -256,11 +289,11 @@ function updateVertices(a) {
         var vector = geometry.vertices[i];
         vector.copy(vector._o);
         var perlin = noise.simplex3(
-            (vector.x * 0.007) + (a * BLOB_TRANSITION_SPEED),
-            (vector.y * 0.002) + (a * BLOB_TRANSITION_SPEED),
-            (vector.z * 0.006) + (a * BLOB_TRANSITION_SPEED),
+            (vector.x * 0.019) + (a * BLOB_TRANSITION_SPEED * 2),
+            (vector.y * 0.019) + (a * BLOB_TRANSITION_SPEED * 2),
+            (vector.z * 0.019) + (a * BLOB_TRANSITION_SPEED * 2),
         );
-        var ratio = ((perlin * 0.1 ) + BLOB_SIZE);
+        var ratio = ((perlin * 0.03 ) + BLOB_SIZE);
         // transitionLightColor();
 
         vector.multiplyScalar(ratio);
