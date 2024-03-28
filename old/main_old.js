@@ -129,7 +129,7 @@ async function fetchBitcoinData() {
     try {
         const response = await fetch(url);
         const data = await response.json();
-
+        volume24h = data.market_data.total_volume.usd; // Added line for 24h volume
         marketCap = data.market_data.market_cap.usd;
         priceChange24h = data.market_data.price_change_percentage_24h;
         currentPrice = data.market_data.current_price.usd;

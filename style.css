@@ -12,20 +12,20 @@ body {
     top: 0;
     left: 0;
     background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
-background-size: 400% 400% !important;
+    animation: gradient 5s ease infinite;
+background-size: 200% 200% !important;
     opacity: 0;
     /* Initially invisible */
-    transition: opacity 1s;
+    transition: opacity 9s;
     /* Smooth transition for the opacity change */
 }
 
 .background1 {
-    background: linear-gradient(-45deg, red, cyan, magenta, blue);
+    background: linear-gradient(-45deg, #C22419  ,#991D14 , #E62B1E  , #70150F);
 }
 
 .background2 {
-    background: linear-gradient(-45deg, #23d5ab, #23a6d5, #e73c7e, #ee7752);
+    background: linear-gradient(-45deg, #1DDE6D , #1DDE6D , #1EE671 , #14994B);
 }
 
 .active {
@@ -76,4 +76,101 @@ button#changeBackground:hover {
     top: 0;
     left: 0;
     z-index:2;
+}
+
+
+
+
+.controls {
+    background: #3f4656;
+    display: flex;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    z-index: 3;
+    box-shadow: 0 4px 20px -1px rgba(18, 22, 33, .7);
+}
+@media (max-width: 1200px) {
+    .controls {
+        margin-top: -4%;
+   }
+}
+@media (max-width: 600px) {
+    .controls {
+        flex-direction: column;
+   }
+}
+.controls label {
+    color: #cdd9ed;
+    font-weight: 500;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 16px;
+}
+@media (max-width: 600px) {
+    .controls label {
+        margin-bottom: 12px;
+   }
+}
+.controls [type="range"] {
+    width: 160px;
+}
+@media (max-width: 600px) {
+    .controls [type="range"] {
+        width: 280px;
+   }
+}
+.controls > div:not(:last-child) {
+    margin-right: 20px;
+}
+@media (max-width: 600px) {
+    .controls > div:not(:last-child) {
+        margin: 0 0 24px 0;
+   }
+}
+.rangeSlider {
+    position: relative;
+    background: none;
+    border: 1px solid #fff;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.rangeSlider.rangeSlider__horizontal {
+    height: 10px;
+    width: 160px;
+}
+.rangeSlider .rangeSlider__fill {
+    border-radius: 7px;
+    background: #fff;
+    position: absolute;
+}
+.rangeSlider .rangeSlider__fill:before {
+    content: '';
+    left: -2px;
+    top: -2px;
+    bottom: -2px;
+    right: -2px;
+    border: 2px solid #3f4656;
+    border-radius: 6px;
+    position: absolute;
+}
+.rangeSlider .rangeSlider__fill__horizontal {
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.rangeSlider .rangeSlider__handle {
+    border: 2px solid #3f4656;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+}
+.rangeSlider .rangeSlider__handle__horizontal {
+    top: -7px;
 }

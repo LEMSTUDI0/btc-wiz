@@ -4,21 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r83/three.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
-    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/708453/perlin.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js"></script>
+    <script src="https://aaroniker.me/range.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/20.0.0/tween.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js"></script>
     
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>BTC VIZ</title>
 </head>
 
 <body>
-    <div class=" background1 active"></div>
-    <div class=" background2"></div>
-    <button id="changeBackground">Change Background</button>
+    <div class="controls" style="display: none;">
+        <div>
+            <label>Speed</label>
+            <input type="range" min="10" max="120" value="13" step="1" name="speed">
+        </div>
+        <div>
+            <label>Spikes</label>
+            <input type="range" min=".05" max="2" value=".6" step=".05" name="spikes">
+        </div>
+        <div>
+            <label>Processing</label>
+            <input type="range" min=".6" max="2.4" value="1" step=".01" name="processing">
+        </div>
+    </div>
+    <div class=" background1 "></div>
+    <div class=" background2 active"></div>
+    <!-- <button id="changeBackground">Change Background</button> -->
     <canvas id="viz"></canvas>
- 
+   
+    
     <script type="module" src="./main.js"></script>
+    <script type="module" src="./3d.js"></script>
 
 </body>
 
