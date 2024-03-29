@@ -174,3 +174,37 @@ button#changeBackground:hover {
 .rangeSlider .rangeSlider__handle__horizontal {
     top: -7px;
 }
+
+
+
+.text{
+    position:absolute;
+    color:white;
+}
+
+.text1 {
+    top: 50px;
+    left:150px;
+    font-size: 30px;
+    width:680px;
+}
+
+.text2 {
+    top: 50px;
+    right:250px;
+    font-size: 25px;
+    width:480px;
+}
+
+.caption{
+    position:absolute;
+    top:500px;
+    left:150px;
+    z-index: 10;;
+}
+
+.lem {
+    position:absolute;
+    bottom:100px;
+    left:150px;
+}
