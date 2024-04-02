@@ -41,6 +41,13 @@ async function fetchBitcoinData() {
         currentPrice = data.market_data.current_price.usd;
         volume24h = data.market_data.total_volume.usd; // Added line for 24h volume
         
+        document.getElementById("marketCap").innerHTML = marketCap + 'USD';
+        document.getElementById("marketCapChangePercentage").innerHTML = marketCapChangePercentage + '%';
+        document.getElementById("currentPrice").innerHTML = currentPrice + 'USD';
+        document.getElementById("priceChange24h").innerHTML = priceChange24h + '%';
+        document.getElementById("volume24h").innerHTML = volume24h + 'USD';
+
+        
         console.log(`Market Cap: ${marketCap}, Price Change (24h): ${priceChange24h}%, Current Price: ${currentPrice}, 24h Volume: ${volume24h} marketCapChangePercent ${marketCapChangePercentage}`);
         if (currentPrice > currentPriceOld) {
             currentPreviousPrice = 0;
@@ -57,8 +64,8 @@ async function fetchBitcoinData() {
         }
         oldColor = mainColor;
 
-        spikesValue =  marketCapChangePercentage / 10 + 0.5;
-        pricessingValue = priceChange24h / 10 + 0.5;
+        spikesValue =  marketCapChangePercentage / 7 + 1.5;
+        pricessingValue = priceChange24h / 7 + 1.5;
         
     } catch (error) {
         console.error('Error fetching data:', error);

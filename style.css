@@ -186,19 +186,49 @@ button#changeBackground:hover {
 }
 
 .text1 {
-    top: 50px;
-    left:150px;
+    top: 64px;
+    left:178px;
     font-size: 30px;
-    width:680px;
+    width:806px;
 }
 
 .text2 {
-    top: 50px;
-    right:250px;
-    font-size: 25px;
-    width:480px;
+    top: 64px;
+    left:1128px;
+    font-size: 20px;
+    width:297px;
 }
-
+.text3 {
+    top: 208px;
+    left:1128px;
+    font-size: 20px;
+    width:297px;
+}
+.text4 {
+    top: 64px;
+    left:1446px;
+    font-size: 20px;
+    width:297px;
+}
+.text5 {
+    top: 208px;
+    left:1446px;
+    font-size: 18px;
+    width:297px;
+}
+.text6 {
+    top: 805px;
+    left:1287px;
+    font-size: 14px;
+    width:297px;
+}
+.text7 {
+    top: 805px;
+    left:1583px;
+    font-size: 14px;
+    width:297px;
+    font-weight: 700;
+}
 .caption{
     position:absolute;
     top:500px;
