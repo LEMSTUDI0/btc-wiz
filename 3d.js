@@ -23,32 +23,90 @@ function switchBackground(){
     const background2 = document.querySelector('.background2');
     background1.classList.toggle('active');
     background2.classList.toggle('active');
-
 }
 
+async function fetchBtcDataBinance(apiKey) {
+    const url = 'https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT';
+  
+    // const headers = {
+    //   'X-MBX-APIKEY': apiKey
+    // };
+  
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+  
+      // Check if the API call was successful
+      if (!response.ok) {
+        throw new Error(`API call failed: ${data.msg}`);
+      }
+  
+      const result = {
+        marketCapPriceChangePercentage: data.priceChangePercent,
+        currentPrice: data.lastPrice,
+        priceChange24h: data.priceChange,
+        volumeChange24h: data.volume
+      };
+      console.log("binance", result);
+  
+      return result;
+    } catch (error) {
+      console.error('Error fetching data:', error.message);
+      throw error;
+    }
+  }
+  
+  // Usage example (Replace 'your_api_key_here' with your actual Binance API key)
+  fetchBtcDataBinance('your_api_key_here')
+    .then(data => console.log(data))
+    .catch(error => console.error('Error in fetching data:', error));
+
+
+function formatNumberByThousands(number) {
+    // Convert the input to a string and split at the decimal point
+    const parts = number.toString().split('.');
+    const integerPart = parts[0];
+
+    // Check if the integer part is purely numeric
+    if (!/^\d+$/.test(integerPart)) {
+        throw new Error("Input must be a numeric value without non-numeric characters in the integer part.");
+    }
+
+    // Reverse the integer part to facilitate inserting spaces every three characters
+    const reversed = integerPart.split('').reverse().join('');
+    const spacedReversed = reversed.replace(/(\d{3})(?=\d)/g, '$1 ');
+
+    // Concatenate the fractional part back if it exists
+    const result = spacedReversed.split('').reverse().join('').trim();
+    return parts.length > 1 ? result + '.' + parts[1] : result;
+}
 
 var currentPreviousPrice = 0; 
 async function fetchBitcoinData() {
     const url = 'https://api.coingecko.com/api/v3/coins/bitcoin';
-
+    const binanceResults = await fetchBtcDataBinance();
     try {
         const response = await fetch(url);
         const data = await response.json();
         console.log(data);
-        marketCap = data.market_data.market_cap.usd;
+        marketCap = formatNumberByThousands(data.market_data.market_cap.usd);
+        // priceChange24h = binanceResults.priceChange24h;
         priceChange24h = data.market_data.price_change_percentage_24h;
-        marketCapChangePercentage = data.market_data.market_cap_change_percentage_24h;
-        currentPrice = data.market_data.current_price.usd;
-        volume24h = data.market_data.total_volume.usd; // Added line for 24h volume
+        marketCapChangePercentage =data.market_data.market_cap_change_percentage_24h;
+        // marketCapChangePercentage =binanceResults.marketCapPriceChangePercentage;
+        // currentPrice = formatNumberByThousands(data.market_data.current_price.usd);
+        currentPrice = formatNumberByThousands(binanceResults.currentPrice);
+        // volume24h = formatNumberByThousands(binanceResults.volumeChange24h);
+        volume24h = formatNumberByThousands(data.market_data.total_volume.usd);
         
-        document.getElementById("marketCap").innerHTML = marketCap + 'USD';
-        document.getElementById("marketCapChangePercentage").innerHTML = marketCapChangePercentage + '%';
-        document.getElementById("currentPrice").innerHTML = currentPrice + 'USD';
-        document.getElementById("priceChange24h").innerHTML = priceChange24h + '%';
-        document.getElementById("volume24h").innerHTML = volume24h + 'USD';
+        document.getElementById("marketCap").innerHTML = marketCap + ' USD';
+        document.getElementById("marketCapChangePercentage").innerHTML = marketCapChangePercentage + ' %';
+        document.getElementById("currentPrice").innerHTML = currentPrice + ' USD';
+        document.getElementById("priceChange24h").innerHTML = priceChange24h + ' %';
+        document.getElementById("volume24h").innerHTML = volume24h + ' USD';
 
         
-        console.log(`Market Cap: ${marketCap}, Price Change (24h): ${priceChange24h}%, Current Price: ${currentPrice}, 24h Volume: ${volume24h} marketCapChangePercent ${marketCapChangePercentage}`);
+        // console.log(`Market Cap: ${marketCap}, Price Change (24h): ${priceChange24h}%, Current Price: ${currentPrice}, 24h Volume: ${volume24h} marketCapChangePercent ${marketCapChangePercentage}`);
         if (currentPrice > currentPriceOld) {
             currentPreviousPrice = 0;
         }
@@ -75,6 +133,8 @@ async function fetchBitcoinData() {
 
 fetchBitcoinData();
 setInterval(fetchBitcoinData, 10 * 1000);
+
+fetchBtcDataBinance();
 
 
 

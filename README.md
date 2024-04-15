@@ -22,3 +22,9 @@ currentPrice
 
 były dostępne poza tymi jebanymi funkcjami async (czy w ogóle potrzebna jest asynchroniczność?)
 
+
+
+BINANCE API
+
+api_key = 'SJezaJMrAArt6Ov1Xe0fBFhmH0O19qsaxIfXwxOZgqO1WBEwIHpZIo5WuCoEWMjO'
+api_secret = 'xIRYPzakWnqRhERfnSuZDUpFGri4WhknxjldnfX5Kn9PxgQUeT6Swg1r1jTzqPni'
