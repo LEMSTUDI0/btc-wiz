@@ -241,3 +241,13 @@ button#changeBackground:hover {
     bottom:100px;
     left:150px;
 }
+
+
+
+.binance {
+    position:absolute;
+    bottom:-15px;
+    left:400px;
+    width: 467px;
+    
+}
