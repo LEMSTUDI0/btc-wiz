@@ -1,21 +1,22 @@
 body {
     height: 100vh;
     position: relative;
-    margin:0;
+    margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 .background1,
 .background2 {
     position: absolute;
     width: 100%;
-    height: 100vh;
+    height: 120vh;
 
     top: 0;
     left: 0;
     background-size: 400% 400%;
     animation: gradient 5s ease infinite;
-background-size: 200% 200% !important;
+    background-size: 200% 200% !important;
     opacity: 0;
     /* Initially invisible */
     transition: opacity 9s;
@@ -23,12 +24,13 @@ background-size: 200% 200% !important;
 }
 
 .background1 {
-    background: linear-gradient(-45deg, #C22419  ,#991D14 , #E62B1E  , #70150F);
+    background: linear-gradient(-45deg, #6F0C01, #6F0C01, #890000, #890000);
 }
 
 .background2 {
-    background: linear-gradient(-45deg, #1DDE6D , #1DDE6D , #1EE671 , #14994B);
+    background: linear-gradient(-45deg, #034732, #034732, #008148, #008148);
 }
+
 
 .active {
     opacity: 1;
@@ -70,14 +72,14 @@ button#changeBackground:hover {
 }
 
 
-#viz{
+#viz {
     position: absolute;
     width: 100%;
     height: 100vh;
 
     top: 0;
     left: 0;
-    z-index:2;
+    z-index: 2;
 }
 
 
@@ -92,16 +94,19 @@ button#changeBackground:hover {
     z-index: 3;
     box-shadow: 0 4px 20px -1px rgba(18, 22, 33, .7);
 }
+
 @media (max-width: 1200px) {
     .controls {
         margin-top: -4%;
-   }
+    }
 }
+
 @media (max-width: 600px) {
     .controls {
         flex-direction: column;
-   }
+    }
 }
+
 .controls label {
     color: #cdd9ed;
     font-weight: 500;
@@ -109,27 +114,33 @@ button#changeBackground:hover {
     display: block;
     margin-bottom: 16px;
 }
+
 @media (max-width: 600px) {
     .controls label {
         margin-bottom: 12px;
-   }
+    }
 }
+
 .controls [type="range"] {
     width: 160px;
 }
+
 @media (max-width: 600px) {
     .controls [type="range"] {
         width: 280px;
-   }
+    }
 }
-.controls > div:not(:last-child) {
+
+.controls>div:not(:last-child) {
     margin-right: 20px;
 }
+
 @media (max-width: 600px) {
-    .controls > div:not(:last-child) {
+    .controls>div:not(:last-child) {
         margin: 0 0 24px 0;
-   }
+    }
 }
+
 .rangeSlider {
     position: relative;
     background: none;
@@ -137,15 +148,18 @@ button#changeBackground:hover {
     border-radius: 6px;
     cursor: pointer;
 }
+
 .rangeSlider.rangeSlider__horizontal {
     height: 10px;
     width: 160px;
 }
+
 .rangeSlider .rangeSlider__fill {
     border-radius: 7px;
     background: #fff;
     position: absolute;
 }
+
 .rangeSlider .rangeSlider__fill:before {
     content: '';
     left: -2px;
@@ -156,11 +170,13 @@ button#changeBackground:hover {
     border-radius: 6px;
     position: absolute;
 }
+
 .rangeSlider .rangeSlider__fill__horizontal {
     height: 100%;
     top: 0;
     left: 0;
 }
+
 .rangeSlider .rangeSlider__handle {
     border: 2px solid #3f4656;
     cursor: grab;
@@ -173,81 +189,90 @@ button#changeBackground:hover {
     background: white;
     border-radius: 50%;
 }
+
 .rangeSlider .rangeSlider__handle__horizontal {
     top: -7px;
 }
 
 
 
-.text{
-    position:absolute;
-    color:white;
+.text {
+    position: absolute;
+    color: white;
     font-family: "Inter", sans-serif;
+    z-index: 10;
 }
 
 .text1 {
     top: 64px;
-    left:178px;
+    left: 7%;
     font-size: 30px;
-    width:806px;
+    width: 806px;
 }
 
 .text2 {
-    top: 64px;
-    left:1128px;
+    top: 7%;
+    left: 1128px;
     font-size: 20px;
-    width:297px;
+    width: 297px;
 }
+
 .text3 {
-    top: 208px;
-    left:1128px;
+    top: 25%;
+    left: 1128px;
     font-size: 20px;
-    width:297px;
+    width: 297px;
 }
+
 .text4 {
-    top: 64px;
-    left:1446px;
+    top: 7%;
+    left: 1446px;
     font-size: 20px;
-    width:297px;
+    width: 297px;
 }
+
 .text5 {
-    top: 208px;
-    left:1446px;
+    top: 25%;
+    left: 1446px;
     font-size: 18px;
-    width:297px;
+    width: 297px;
 }
+
 .text6 {
-    top: 805px;
-    left:1287px;
+    top: 82%;
+    left: 1287px;
     font-size: 14px;
-    width:297px;
+    width: 297px;
 }
+
 .text7 {
-    top: 805px;
-    left:1583px;
+    top: 82%;
+    left: 1583px;
     font-size: 14px;
-    width:297px;
+    width: 297px;
     font-weight: 700;
 }
-.caption{
-    position:absolute;
-    top:500px;
-    left:150px;
-    z-index: 10;;
+
+.caption {
+    position: absolute;
+    top: 46%;
+    left: 7%;
+    z-index: 10;
+    ;
 }
 
 .lem {
-    position:absolute;
-    bottom:100px;
-    left:150px;
+    position: absolute;
+    bottom: 100px;
+    left: 7%;
 }
 
 
 
 .binance {
-    position:absolute;
-    bottom:-15px;
-    left:400px;
+    position: absolute;
+    bottom: -15px;
+    left: 21%;
     width: 467px;
-    
+
 }
