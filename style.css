@@ -3,6 +3,7 @@ body {
     position: relative;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 .background1,
@@ -23,11 +24,11 @@ body {
 }
 
 .background1 {
-    background: linear-gradient(-45deg, #C22419, #991D14, #E62B1E, #70150F);
+    background: linear-gradient(-45deg, #6F0C01, #6F0C01, #890000, #890000);
 }
 
 .background2 {
-    background: linear-gradient(-45deg, #1DDE6D, #1DDE6D, #1EE671, #14994B);
+    background: linear-gradient(-45deg, #034732, #034732, #008148, #008148);
 }
 
 .active {
@@ -202,57 +203,57 @@ button#changeBackground:hover {
 }
 
 .text1 {
-    font-size: 12px;
-    width: 199px;
+    font-size: 15px;
+    width: 385px;
     height: 87px;
-    top: 63px;
-    left: 20px;
+    top: 372px;
+    left: 281px;
 }
 
 .text2 {
-    top: 179px;
+    top: 29px;
     left: 20px;
-    font-size: 8px;
-    width: 199px;
-    height: 56px;
+    font-size: 13px;
+    width: 200px;
+    height: 51px;
 }
 
 .text3 {
-    top: 227px;
+    top: 125px;
     left: 20px;
-    font-size: 8px;
+    font-size: 13px;
     width: 199px;
     height: 28px;
 }
 
 .text4 {
-    top: 269px;
+    top: 175px;
     left: 20px;
-    font-size: 8px;
+    font-size: 13px;
     width: 199px;
     height: 29px;
 }
 
 .text5 {
-    top: 318px;
+    top: 289px;
     left: 20px;
-    font-size: 8px;
+    font-size: 13px;
     width: 199px;
-    height:62px;
+    height: 62px;
 }
 
 .text-stats {
     top: 233px;
     left: 827px;
-    font-size: 10px;
+    font-size: 12px;
     width: 262px;
-    height:240px;
+    height: 240px;
 }
 
 .text-stats-values {
     top: 233px;
     left: 995px;
-    font-size: 10px;
+    font-size: 12px;
     width: 297px;
     font-weight: 700;
 }
@@ -267,7 +268,7 @@ button#changeBackground:hover {
 
 .lem {
     position: absolute;
-    top: 406px;
+    top: 422px;
     left: 20px;
     width: 39px;
     height: 21px;
@@ -275,9 +276,8 @@ button#changeBackground:hover {
 
 .binance {
     position: absolute;
-    top: 371px;
+    top: 385px;
     left: 96px;
     width: 136px;
-    
-}
 
+}

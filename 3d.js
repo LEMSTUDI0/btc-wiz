@@ -13,8 +13,8 @@ var pricessingValue = 1;
 var mainColor = 0;
 
 const colorMap = [
-    0xff0000, // Red
-    0x00ff00, // Green
+    0x9A1202, // Red
+    0x034732, // Green
 ];
 
 function switchBackground(){
@@ -196,7 +196,7 @@ for(let i = 0, element; element = document.querySelectorAll('input[type="range"]
     let geometry = new THREE.SphereGeometry(.8, 128, 128);
 
     let material = new THREE.MeshPhongMaterial({
-        color: 0xFFAAFF,
+        color: 0x6F0C01,
         shininess: 100
     });
 
